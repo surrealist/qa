@@ -1,0 +1,44 @@
+﻿@using qa.Models
+@model IEnumerable<Questionaire>
+
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    @if (Model.Count() == 0) {
+      <h4>No questionaires</h4>
+    }
+    else {
+      <div class="text-center" style="margin-bottom: 15px;">
+        @{
+          var activeOnly = Convert.ToBoolean(Request.QueryString["activeOnly"]);
+          var btnAll = activeOnly ? "btn-default" : "btn-success";
+          var btnActive = activeOnly ? "btn-success" : "btn-default";
+        }
+
+        @Html.ActionLink("All", "Index", new { activeOnly = false }, new { @class = "btn btn-xs " + btnAll })
+        @Html.ActionLink("Active Only", "Index", new { activeOnly = true }, new { @class = "btn btn-xs " + btnActive })
+      </div>
+
+          foreach (var q in Model) {
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <div class="pull-right">
+                  <button class="btn btn-default btn-xs">Edit</button>
+                  <button class="btn btn-default btn-xs">Response</button>
+                </div>
+                <strong>
+                  @q.Title
+                </strong>
+              </div>
+              <div class="panel-body">
+                <div class="pull-right">
+                  @q.Sections.SelectMany(s => s.Questions).Count() questions
+                </div>
+                @Html.DisplayFor(x => q.DateStart, "DateTime_th_abbr")
+                &ndash;
+                @Html.DisplayFor(x => q.DateEnd, "DateTime_th_abbr")
+              </div>
+            </div>
+            }
+          }
+  </div>
+</div>

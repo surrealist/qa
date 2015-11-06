@@ -18,12 +18,12 @@
         @Html.ActionLink("Active Only", "Index", new { activeOnly = true }, new { @class = "btn btn-xs " + btnActive })
       </div>
 
-          foreach (var q in Model) {
+          foreach (var q in Model) { 
             <div class="panel panel-default">
               <div class="panel-heading">
                 <div class="pull-right">
-                  <button class="btn btn-default btn-xs">Edit</button>
-                  <button class="btn btn-default btn-xs">Response</button>
+                  <button class="btn btn-default btn-xs" disabled="@(!q.IsActiveToday)">Edit</button>
+                  <button class="btn btn-default btn-xs" disabled="@(!q.IsActiveToday)">Response</button>
                 </div>
                 <strong>
                   @q.Title

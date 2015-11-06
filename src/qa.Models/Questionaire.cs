@@ -34,6 +34,13 @@ namespace qa.Models {
       DateCreated = DateStart = DateTime.Today;
       DateEnd = DateTime.Today.AddDays(3);
     }
+
+    public bool IsActiveToday {
+      get {
+        var d = DateTime.Today;
+        return DateStart <= d && d <= DateEnd;
+      }
+    }
   }
 
 }
